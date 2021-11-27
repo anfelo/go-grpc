@@ -75,7 +75,7 @@ func (s Store) InsertRocket(rkt rocket.Rocket) (rocket.Rocket, error) {
 
 // DeleteRocket - attempts to delete a rocket from the database return err if error
 func (s Store) DeleteRocket(id string) error {
-	uid, err := uuid.FromBytes([]byte(id))
+	uid, err := uuid.Parse(id)
 	if err != nil {
 		return err
 	}
