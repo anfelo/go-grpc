@@ -5,6 +5,7 @@ import (
 
 	"github.com/anfelo/go-grpc/internal/datastores/db"
 	"github.com/anfelo/go-grpc/internal/rocket"
+	"github.com/anfelo/go-grpc/internal/transport/grpc"
 )
 
 func Run() error {
@@ -18,7 +19,11 @@ func Run() error {
 		return err
 	}
 
-	_ = rocket.New(rocketStore)
+	rktService := rocket.New(rocketStore)
+	rktHandler := grpc.New(rktService)
+	if err := rktHandler.Serve(); err != nil {
+		return err
+	}
 	return nil
 }
 
